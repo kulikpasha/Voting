@@ -1,0 +1,8 @@
+{
+	"name": "project_voting",
+	"dockerComposeFile": "../../docker-compose.yml",
+	"service": "voting_service_backend",
+	"workspaceFolder": "/backend",
+	"shutdownAction": "stopCompose",
+	"forwardPorts": [5000, 3307]
+}
