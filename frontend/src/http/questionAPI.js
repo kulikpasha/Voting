@@ -1,6 +1,6 @@
 import { $host } from "./index";
 
-export const getCurrentQuestion = async (pollId) => {
+export const doLongPolling = async (pollId) => {
 	try {
 		const { data } = await $host.get(`api/active_poll/longpoll/${pollId}`);
 		return data;

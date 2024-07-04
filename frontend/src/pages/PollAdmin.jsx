@@ -11,8 +11,11 @@ function PollAdmin() {
 
 	const fetchCurrentQuestion = async () => {
 		try {
-			const data = await getPollStatus(id);
-			setCurrentQuestion(data);
+			const response = await getPollStatus(id);
+			setCurrentQuestion({
+				question_text: response.question_text,
+				answers: response.answers,
+			});
 		} catch (error) {
 			console.error('Ошибка при получении текущего вопроса:', error);
 		}
@@ -38,7 +41,7 @@ function PollAdmin() {
 		fetchCurrentQuestion();
 	}, [id]);
 
-	if (!currentQuestion) {
+	if (currentQuestion === null) {
 		return <div className="loading">Загрузка текущего вопроса...</div>;
 	}
 

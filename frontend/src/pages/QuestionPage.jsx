@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCurrentQuestion, submitAnswer } from '../http/questionAPI';
+import { doLongPolling, submitAnswer } from '../http/questionAPI';
 import '../components/QuestionPage.css';
 import { useParams } from "react-router-dom";
 
@@ -17,9 +17,12 @@ function QuestionPage() {
 			if (!isMounted) return;
 
 			try {
-				const questionData = await getCurrentQuestion(id);
+				const questionData = await doLongPolling(id);
 				if (questionData && isMounted) {
-					setQuestion(questionData);
+					setQuestion({
+						question_text: questionData.question_text,
+						answers: questionData.answers,
+					});
 					setIsLoading(false);
 					setSelectedAnswer(null);
 					setIsSubmitted(false);
