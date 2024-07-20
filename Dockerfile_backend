@@ -3,7 +3,7 @@ FROM node:latest
 
 COPY ./backend .
 
-WORKDIR /app
+WORKDIR /backend
 RUN npm cache clean --force
 RUN npm install
 CMD ["node", "index.js"]

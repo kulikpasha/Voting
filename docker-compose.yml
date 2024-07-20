@@ -1,5 +1,3 @@
-version: '3.8'
-
 name: project_voting_internship
 services:
 
@@ -46,7 +44,7 @@ services:
       - '3307:3306'
     volumes:
       - db:/var/lib/mysql
-      - $PWD/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 1s
