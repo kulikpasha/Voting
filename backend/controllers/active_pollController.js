@@ -16,31 +16,47 @@ class Active_pollController {
 
 	async getOne(req, res, next) {
 		const { id, poll_id } = req.query;
-
+	
 		if (!id && !poll_id) {
-			return next(
-				ApiError.badRequest("Необходимо указать id или poll_id")
-			);
+			return next(ApiError.badRequest("Необходимо указать id или poll_id"));
 		}
-
+	
 		try {
 			let active_poll;
-
+	
 			if (id) {
-				active_poll = await Active_poll.findOne({ where: { id } });
+				active_poll = await Active_poll.findOne({
+					where: { id },
+					include: [{
+						model: Question,
+						include: [Answer] // Включаем варианты ответов
+					}]
+				});
 			} else if (poll_id) {
-				active_poll = await Active_poll.findOne({ where: { poll_id } });
+				active_poll = await Active_poll.findOne({
+					where: { poll_id },
+					include: [{
+						model: Question,
+						include: [Answer] // Включаем варианты ответов
+					}]
+				});
 			}
-
+	
 			if (!active_poll) {
 				return next(ApiError.notFound("Активный опрос не найден"));
 			}
-
-			return res.json(active_poll);
+	
+			// Формируем ответ
+			const response = {
+				id: active_poll.id,
+				poll_id: active_poll.poll_id,
+				question_text: active_poll.Question.question_text, // Текст вопроса
+				answers: active_poll.Question.Answers.map(answer => answer.answer) // Варианты ответов
+			};
+	
+			return res.json(response);
 		} catch (e) {
-			return next(
-				ApiError.internal("Ошибка при получении активного опроса")
-			);
+			return next(ApiError.internal("Ошибка при получении активного опроса"));
 		}
 	}
 
@@ -126,10 +142,7 @@ class Active_pollController {
 					where: { question_id: new_question_id },
 				});
 
-				answers = answer_options.map((answer) => ({
-					id: answer.id,
-					text: answer.answer,
-				}));
+				answers = answer_options.map((answer) => (answer.answer));
 			}
 
 			await Active_poll.update(
