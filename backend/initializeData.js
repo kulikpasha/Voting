@@ -235,4 +235,4 @@ const initializeData = async () => {
   }
 };
 
-module.exports = {initializeData};
+module.exports = initializeData;
