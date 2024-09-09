@@ -4,6 +4,8 @@ import { getPollStatus, nextQuestion } from '../http/questionAPI';
 import Button from '../components/Button/Button';
 import '../components/PollAdmin.css'
 
+// Этим занимаемся
+
 function PollAdmin() {
 	const { id } = useParams();
 	const navigate = useNavigate();

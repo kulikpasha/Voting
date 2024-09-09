@@ -77,6 +77,19 @@ class PollController {
 			return next(ApiError.internal("Ошибка при удалении опроса"));
 		}
 	}
+
+	async edit(req, res, next) {
+		const {id} = req.params
+		const { newTitle, newDescription, newIsOpen} = req.body
+
+		try {
+			await Poll.update({title: newTitle, description: newDescription, isOpen: newIsOpen},
+				 {where: {id}})
+			return res.json({message: 'Запрос обработан'})
+		} catch (e) {
+			return next(ApiError.internal("Ошибка при обновлении опроса"));
+		}	
+	}
 }
 
 module.exports = new PollController();

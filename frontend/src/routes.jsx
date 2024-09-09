@@ -16,6 +16,7 @@ import PollPage from "./pages/PollPage";
 import Question from "./pages/QuestionPage";
 import PollResult from "./pages/PollResult";
 import PollAdmin from "./pages/PollAdmin";
+import { Component } from "react";
 
 export const authRoutes = [{ path: ADMIN_ROUTE, Component: Admin }];
 export const publicRoutes = [
@@ -47,5 +48,8 @@ export const publicRoutes = [
 		path: POLL_RESULT_ROUTE + "/:id",
 		Component: PollResult,
 	},
-
+	{
+		path: ADMIN_ROUTE,
+		Component: Admin,
+	},
 ];

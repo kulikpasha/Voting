@@ -18,8 +18,8 @@ const Poll = sequelize.define(
 	"Poll",
 	{
 		id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-		user_id: { type: DataTypes.INTEGER },
-		user_name: { type: DataTypes.STRING },
+		user_id: { type: DataTypes.INTEGER }, // Похоже это создатель
+		user_name: { type: DataTypes.STRING }, // и это тоже
 		title: { type: DataTypes.STRING },
 		description: { type: DataTypes.TEXT },
 		isOpen: { type: DataTypes.BOOLEAN },

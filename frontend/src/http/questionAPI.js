@@ -1,5 +1,7 @@
 import { $host } from "./index";
 
+// Вот он, лонг поллинг
+
 export const doLongPolling = async (pollId) => {
 	try {
 		const { data } = await $host.get(`api/active_poll/longpoll/${pollId}`);

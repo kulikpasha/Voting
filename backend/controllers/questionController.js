@@ -56,6 +56,13 @@ class QuestionController {
 
 		return res.json(question);
 	}
+
+	async getPollQuestions(req, res) {
+		const {poll_id} = req.params
+		const questions = await Question.findAll({ where: {poll_id} })
+
+		return res.json(questions)
+	}
 }
 
 module.exports = new QuestionController();
