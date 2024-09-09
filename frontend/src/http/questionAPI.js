@@ -20,11 +20,10 @@ export const doLongPolling = async (pollId) => {
 // }
 export const getPollStatus = async (pollId) => {
 	try {
-		const response = await $host.get(
+		const { data } = await $host.get(
 			`api/active_poll/one?poll_id=${pollId}`
 		);
-		console.log("Статус опроса получен", response.data);
-		return response.data;
+		return data;
 	} catch (error) {
 		console.error("Ошибка при попытке получить статус опроса:", error);
 		throw error;

@@ -9,42 +9,53 @@ import '../components/PollAdmin.css'
 function PollAdmin() {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [currentQuestion, setCurrentQuestion] = useState(null);
+	const [currentQuestion, setCurrentQuestion] = useState({question_text: 0, answers: [1,2,3]});
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
 
-	const fetchCurrentQuestion = async () => {
-		try {
-			const response = await getPollStatus(id);
-			setCurrentQuestion({
-				question_text: response.question_text,
-				answers: response.answers,
-			});
-		} catch (error) {
-			console.error('Ошибка при получении текущего вопроса:', error);
-		}
-	};
 
 	const handleAction = async () => {
 		if (currentQuestion.question_text === "Данный опрос завершен") {
 			navigate(`/result/${id}`);
 		} else {
 			try {
-				const response = await nextQuestion(id);
+				const data = await nextQuestion(id);
 				setCurrentQuestion({
-					question_text: response.question_text,
-					answers: response.answers,
+					question_text: data.question_text,
+					answers: data.answers,
 				});
+				
 			} catch (error) {
 				console.error('Ошибка при переходе к следующему вопросу:', error);
 			}
 		}
 	};
 
-	useEffect(() => {
-		fetchCurrentQuestion();
-	}, [id]);
 
-	if (currentQuestion === null) {
-		return <div className="loading">Загрузка текущего вопроса...</div>;
+	useEffect(() => {
+		setIsLoading(true);
+		setError('');
+
+		getPollStatus(id)
+			.then(data => {
+				setCurrentQuestion(data);
+				
+				setIsLoading(false);
+			})
+			.catch(error => {
+				console.error(error);
+				setError('Ошибка: сервер бэкенда не доступен');
+				setIsLoading(false);
+			});
+
+	}, []);
+
+	if (isLoading) {
+		return <main><p>Загрузка...</p></main>;
+	}
+
+	if (error) {
+		return <main><p>{error}</p></main>;
 	}
 
 	return (
@@ -53,13 +64,14 @@ function PollAdmin() {
 			<div className="questionSection">
 				<h2>Текущий вопрос:</h2>
 				<h1 className="questionText">{currentQuestion.question_text}</h1>
-				{currentQuestion.answers && (
+				
+				 
 					<ul className="answersList">
 						{currentQuestion.answers.map((answer) => (
-							<li key={answer.id} className="answerItem">{answer.text}</li>
+							<li key={answer.id} className="answerItem">{answer}</li>
 						))}
 					</ul>
-				)}
+				
 			</div>
 			<Button onClick={handleAction}>
 				{currentQuestion.question_text === "Данный опрос завершен" ? "Посмотреть результаты" : "Следующий вопрос"}
