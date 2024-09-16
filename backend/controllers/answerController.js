@@ -27,22 +27,10 @@ class AnswerController {
 	}
 
 	async getAll(req, res) {
-		const { question_id, poll_id } = req.query;
+		const { question_id } = req.params;
 
 		let answers;
-
-		if (!question_id && !question_id) {
-			answers = await Answer.findAll();
-		}
-		if (question_id && !poll_id) {
-			answers = await Answer.findAll({ where: { question_id } });
-		}
-		if (!question_id && poll_id) {
-			answers = await Answer.findAll({ where: { poll_id } });
-		}
-		if (question_id && poll_id) {
-			answers = await Answer.findAll({ where: { question_id, poll_id } });
-		}
+		answers = await Answer.findAll({where: {question_id}})
 		return res.json(answers);
 	}
 }

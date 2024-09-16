@@ -76,3 +76,17 @@ export const submitAnswer = async (pollId, questionId, answerId) => {
 		throw error;
 	}
 };
+
+export const editQuestion = async(poll_id, question_text) => {
+	try {
+		const response = await $host.post(`api/question/${poll_id}`, {
+			question_text: question_text
+		})
+
+		console.log('Сохранено')
+		return response.data
+	} catch (error) {
+		console.error('Ошибка при попытке сохранить вопрос: ', error)
+		throw error;
+	}
+}

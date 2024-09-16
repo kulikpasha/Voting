@@ -47,3 +47,16 @@ $(document).on('click', '.render', function() {
         $('.highlight').removeClass('save')
     }
 })
+
+$(document).on('click', '.answer', function() {
+    let answerClass = $(this.classList)[1]
+    console.log(answerClass)
+    if (this.classList.contains('right_answer')) {
+        $(`.${answerClass}`).removeClass('right_answer')
+    } else {
+        $(`.${answerClass}`).removeClass('right_answer')
+        $(this).addClass('right_answer')
+    }
+})
+
+//scroll

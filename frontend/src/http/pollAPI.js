@@ -23,3 +23,19 @@ export const getSinglePollQuestions = async(poll_id) => {
 	const {data} = await $host.get('api/question/all/' + poll_id)
 	return data
 }
+
+export const editPoll = async(poll_id, title, description, isOpen) => {
+	try {
+		const response = await $host.post(`api/poll/${poll_id}`, {
+			title: title,
+			description: description,
+			isOpen: isOpen
+		})
+		console.log(response)
+		console.log('vse ok')
+		return response.data;
+	} catch (error) {
+		console.error(error)
+		throw error
+	}
+}

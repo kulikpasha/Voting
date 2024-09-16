@@ -63,6 +63,35 @@ class QuestionController {
 
 		return res.json(questions)
 	}
+
+	async editQuestion(req, res, next) {
+		const {poll_id} = req.params
+		const {questions} = req.body
+
+		try {
+			const  existingQuestions = await Question.findAll({where: {poll_id: poll_id}})
+
+			if ( existingQuestions.length === 0 ) {
+				return res.status(404).json({message: 'Вопросов данного голосования не найдено'})
+			}
+
+			for (let i = 0; i < questions.length; i++) {
+				const {id, question_text} = questions[i]
+
+				const updatedQuestion = await Question.update(
+					{question_text: question_text},
+					{where: {id: id, poll_id}}
+				)
+
+				if (updatedQuestion[0] === 0) {
+					return res.status(404).json({message: `Вопрос с id${id} не обновился`})
+				}
+			}
+			return res.json({message: 'Все вопросы обновлены'})
+		}	catch (error) {
+			return next(ApiError.internal('Ошибка при обновлении запросов'))
+		}
+	}
 }
 
 module.exports = new QuestionController();

@@ -28,6 +28,7 @@ class PollController {
 	async getAll(req, res) {
 		const { user_id, title } = req.query;
 
+		console.log(req.query)
 		let polls;
 
 		if (!user_id && !title) {
@@ -80,12 +81,15 @@ class PollController {
 
 	async edit(req, res, next) {
 		const {id} = req.params
-		const { newTitle, newDescription, newIsOpen} = req.body
+		const { title: newTitle, description: newDescription, isOpen: newIsOpen } = req.body;
 
 		try {
-			await Poll.update({title: newTitle, description: newDescription, isOpen: newIsOpen},
-				 {where: {id}})
-			return res.json({message: 'Запрос обработан'})
+			const updatedPoll = await Poll.update({title: newTitle, description: newDescription, isOpen: newIsOpen},
+				{where: {id}})
+				if (updatedPoll === 0) {
+					return res.status(404).json({ message: 'Опрос не найден или не изменен' });
+				}
+			return res.json(updatedPoll)
 		} catch (e) {
 			return next(ApiError.internal("Ошибка при обновлении опроса"));
 		}	

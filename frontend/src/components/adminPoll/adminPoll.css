@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+input {
+    border: none;
+    background-color: #f1f1f1;
+    outline:none;
+    background: inherit;
+}
+
 .upperPoll {
     display: flex;
     justify-content: center;
@@ -7,7 +16,8 @@
 
 .poll {
     width: 80vw;
-    background-color: #f3f3f3;
+    height: auto;
+    background-color: #fc8b19;
     border-radius: 20px;
     margin-bottom: 50px;
     box-sizing: border-box;
@@ -17,6 +27,7 @@
     transition: 0.3s;
     display: block;
     position: relative;
+    color: #ffffff;
 }
 
 .poll_title {
@@ -24,15 +35,15 @@
     text-align: left;
     font-size: 28px;
     font-weight: 600;
+    color: white;
+    text-transform: uppercase;
 }
 
 .poll_description {
     overflow: auto;
-    max-height: 100px;
     font-size: 14px;
     margin: 20px 0 0 20px;
-    color: #505050;
-    max-width: 30vw;
+    max-width: 50vw;
 }
 
 .status {
@@ -71,11 +82,12 @@
 }
 
 .render {
-    background-color: #fc8b19;
+    background-color: #f3f3f3;
+    color: #fc8b19;
 }
 
 .render:hover {
-    box-shadow: 0px 3px 5px 0px #ffc78f;
+    box-shadow: 0px 2px 5px 0px #ffc68e;
 }
 
 .highlight, .save {
@@ -104,7 +116,6 @@
 
 .admin_panel {
     width: 100%;
-    height: 900px;
     background: #f1f1f1;
     border-radius: 50px;
     transform: translateY(-800px);
@@ -118,7 +129,7 @@
 }
 
 .editor {
-    transform: translateY(270px)
+    padding: 290px 0 0 0;
 }
 
 .poll_topEditor {
@@ -128,55 +139,107 @@
 }
 
 .poll_title_editor {
-    display: flex;
-    justify-content: left;
     font-size: 23px;
+    letter-spacing: 1px;
 }
 
-.poll_title_editor input {
-    width: 100%;
+.needHelp {
+    width: 80%;
     border: none;
     background-color: #f1f1f1;
     outline:none;
-    margin: 0 0 0 10px;
+    margin: 20px 0px 25px 40px;
     font-size: 23px;
-    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-family: "Noto Sans", system-ui;
+    color: #fc8b19;
+    text-align: left;
+    text-transform: uppercase;
+    resize: none;
 }
 
 .poll_description_editor {
     display: flex;
     justify-content: left;
-    font-size: 18px;
-    margin-top: 30px;
+    font-size: 23px;
+    line-height: 24px;
 }
 
-.poll_description_editor textarea {
+.needHelpToo {
     width: 100%;
-    min-height: 110px;
     border: none;
     background-color: #f1f1f1;
     outline:none;
-    margin: 0 0 0 10px;
-    font-size: 18px;
-    resize: none;
+    font-size: 17px;
+    font-style: italic;
+    margin: 0 0 0 30px;
+    box-sizing: border-box;
+    padding: 0px 10px 10px 10px;
 }
 
 .poll_bottomEditor {
     width: 100%;
-    height: 300px;
     box-sizing: border-box;
     padding: 20px 40px 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question_slider {
+    width: 60vw;
+    overflow: hidden;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+
+.scroll {
+    width: fit-content;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
 }
 
 .question {
-    margin: 40px 0 0 60px;
+    box-sizing: border-box;
+    padding: 40px 50px 40px 50px;
+    width: 60vw;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    float: left;
+    margin: 0px 50px 0 0px;
+    scroll-snap-align: start;
+
 }
 
-.q_title {
-    font-size: 30px;
-    font-weight: bold;
+.QT_input {
+    font-size: 24px;
+    font-family: "Noto Sans", system-ui;
+    outline: none;
 }
 
-.question_text {
-    font-size: 20px;
+.answers {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 20px 20px 0px;
+}
+
+.Aball {
+    width: 20px;
+    aspect-ratio: 1/1;
+    border-radius: 100px;
+    border: 3px solid #fc8b19;
+    transition: 0.2s;
+    float: left;
+    margin: 0 10px 0 0px;
+}
+
+.right_answer .Aball {
+    background: #fc8b19;
+}
+
+.answer {
+    margin: 20px 0 0 40px;
+    font-size: 15px;
+    font-family: "Noto Sans", system-ui;
 }

@@ -3,13 +3,28 @@ import './adminPoll.css'
 import open from '../../..//public/open.png'
 import block from '/block.png'
 import './index'
-import { getSinglePollQuestions } from "../../http/pollAPI";
+import { editPoll, getSinglePollQuestions } from "../../http/pollAPI";
 import AP_Question from "./question";
+import { editQuestion } from "../../http/questionAPI";
 
 export default function AdminPoll({id , title, description, user_name, isOpen}) {
     const [newTitle, setNewTitle] = useState(title);
     const [newDescription, setNewDescription] = useState(description);
+    const [newIsOpen, setNewIsOpen] = useState(isOpen)
     const [newQuestions, setNewQuestions] = useState([]);
+
+    const handleEdit = async (e) => {
+        if (e.target.classList.contains('save')) {
+            e.preventDefault();
+
+            try {
+                const response4Poll = await editPoll(id, newTitle, newDescription, newIsOpen)
+                console.log('norm')
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
 
     useEffect(() => {
         getSinglePollQuestions(id).then(data => {
@@ -29,27 +44,29 @@ export default function AdminPoll({id , title, description, user_name, isOpen}) 
                     <div className="editor">
                         <div className="poll_topEditor" id={`poll_topEditor${id}`}>
                             <div className="poll_title_editor">
-                                <span>Название:</span>
-                                <input type="text" defaultValue={newTitle} onChange={e => setNewTitle(e.target.value)}></input>
+                                <div className="edit" style={{fontSize: '40px', textDecoration: 'italic'}}>
+                                    РЕДАКТИРОВАНИЕ
+                                </div>
+                                <div className='needHelp' type="text" defaultValue={newTitle} onInput={e => setNewTitle(e.target.innerText)} contentEditable='true' suppressContentEditableWarning='true'>{title}</div>
                             </div>
                             <div className="poll_description_editor">
-                                <span>Описание:</span>
-                                <textarea type="text" defaultValue={newDescription} onChange={e => setNewDescription(e.target.value)}></textarea>
+                                <div className="needHelpToo" type="text" defaultValue={newDescription} onInput={e => setNewDescription(e.target.innerText)} contentEditable='true' suppressContentEditableWarning='true'>{description}</div>
                             </div>
                         </div>
                         <div className="poll_bottomEditor">
-                            <div className='q_title'>
-                                Список вопросов:
+                            <div className="question_slider">
+                                <div className="scroll" id={`scrollId${id}`}>
+                                    {newQuestions.map(newQuestion => (
+                                        <AP_Question key={newQuestion.id} {...newQuestion}/>
+                                    ))}
+                                </div>
                             </div>
-                            {newQuestions.map(newQuestion => (
-							    <AP_Question key={newQuestion.id} {...newQuestion}/>
-						    ))}
                         </div>
                     </div>
                 </div>
             </div>
             <div className="poll" id={`pollId${id}`}>
-                <div className="poll_title">
+                <div className="poll_title" >
                     <span>#{id}. </span>{newTitle}
                 </div>
                 <div className="poll_description">
@@ -63,7 +80,7 @@ export default function AdminPoll({id , title, description, user_name, isOpen}) 
                 <div className="poll_creator">
                     Создатель: <span style={{fontStyle: 'italic', margin: '0 3px 0 0px'}}>{user_name}</span>
                 </div>
-                <div className="button highlight" id={id}>
+                <div className="button highlight" id={id} onClick={handleEdit}>
                     Выделить
                 </div>
                 <div className="button render" id={id}>
