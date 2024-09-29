@@ -2,7 +2,12 @@
 
 .main {
     width: 100%;
-    overflow: auto;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .inner-main {
@@ -44,4 +49,25 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.notification {
+    position: fixed;
+    background: #62d371;
+    z-index: 100;
+    transform: translateY(-250px);
+    border-radius: 100px;
+    padding: 15px 30px 15px 30px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.notification_inside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-family: "Noto Sans", system-ui;
+    color: white;
+    font-weight: bold;
 }

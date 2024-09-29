@@ -3,9 +3,10 @@ const router = new Router();
 const questionController = require("../controllers/questionController");
 
 router.post("/", questionController.create);
-router.get("/", questionController.getAll);
+router.delete('/:id', questionController.delete)
+router.get("/all/:poll_id", questionController.getAll);
 router.get("/:id", questionController.getOne);
 router.get("/all/:poll_id", questionController.getPollQuestions);
-router.post("/:id", questionController.editQuestion)
+router.post("/:poll_id", questionController.editQuestions)
 
 module.exports = router;

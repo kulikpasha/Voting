@@ -24,29 +24,38 @@ class QuestionController {
 			}
 
 			const question = await Question.create(questionData);
-
+			console.log('Создан вопрос: ', questionData)
 			return res.json(question);
 		} catch (e) {
 			next(ApiError.badRequest(e.message));
 		}
 	}
 
+	async delete(req, res, next) {
+		try {
+			const {id} = req.params
+
+			await Question.destroy({where: {id}})
+			return res.json({message: 'Вопрос удален'})
+		}	catch (error) {
+			console.log(error)
+		}
+	}
+
 	async getAll(req, res) {
-		const { poll_id } = req.query;
+		try {
+			const { poll_id } = req.params;
 
-		if (!poll_id) {
-			return res.status(400).json({ error: "poll_id не указан" });
+			if (!poll_id) {
+				return res.status(400).json({ error: "poll_id не указан" });
+			}
+
+			const questions = await Question.findAll({ where: { poll_id } });
+
+			return res.json(questions);
+		} catch {
+			return undefined
 		}
-
-		const questions = await Question.findAll({ where: { poll_id } });
-
-		if (questions.length === 0) {
-			return res
-				.status(404)
-				.json({ message: "Вопросы по указанному poll_id не найдены" });
-		}
-
-		return res.json(questions);
 	}
 
 	async getOne(req, res) {
@@ -64,29 +73,43 @@ class QuestionController {
 		return res.json(questions)
 	}
 
-	async editQuestion(req, res, next) {
+	async editQuestions(req, res, next) {
 		const {poll_id} = req.params
 		const {questions} = req.body
+/*
+		console.log(questions[0].question_text)
+
+		console.log(req.params)
+
+		console.log("Полученные вопросы:", questions);
+        console.log("ID голосования:", poll_id);
+*/
 
 		try {
 			const  existingQuestions = await Question.findAll({where: {poll_id: poll_id}})
+			//console.log("Существующие вопросы:", existingQuestions);
 
 			if ( existingQuestions.length === 0 ) {
+				//console.log('Вопросов данного голосования не найдено');
 				return res.status(404).json({message: 'Вопросов данного голосования не найдено'})
 			}
-
-			for (let i = 0; i < questions.length; i++) {
-				const {id, question_text} = questions[i]
-
-				const updatedQuestion = await Question.update(
-					{question_text: question_text},
-					{where: {id: id, poll_id}}
-				)
-
-				if (updatedQuestion[0] === 0) {
-					return res.status(404).json({message: `Вопрос с id${id} не обновился`})
-				}
+			const updatePromises = questions.map((question) => {
+				const { id, question_text } = question;
+				//console.log(`Обновление вопроса с ID ${id}: ${question_text}`);
+				return Question.update(
+					{ question_text },
+					{ where: { id, poll_id } }
+				);
+			});
+	
+			// Ждем выполнения всех обновлений
+			try {
+				const updateResults = await Promise.all(updatePromises);
+				//console.log('Результаты обновления: ', updateResults);
+			} catch (error) {
+				console.error('Ошибка при обновлении вопросов: ', error);
 			}
+
 			return res.json({message: 'Все вопросы обновлены'})
 		}	catch (error) {
 			return next(ApiError.internal('Ошибка при обновлении запросов'))

@@ -94,6 +94,11 @@ const initializeData = async () => {
             "Как вы оцениваете работу Федеральной службы по надзору в сфере здравоохранения?",
         },
         {
+          poll_id: polls[1].id,
+          question_text:
+            "Сосал ?",
+        },
+        {
           poll_id: polls[2].id,
           question_text:
             "Как вы оцениваете доступ к информации о деятельности Росздравнадзора?",
@@ -137,94 +142,96 @@ const initializeData = async () => {
 
       const answersToInsert = [
         {
+          id: 1,
           poll_id: questions[0].poll_id,
           question_id: questions[0].id,
-          answer: "Отлично",
+          answer: "хуично",
+        },
+        {
+          id: 2,
+          poll_id: questions[0].poll_id,
+          question_id: questions[0].id,
+          answer: "пиздично",
         },
         {
           poll_id: questions[0].poll_id,
           question_id: questions[0].id,
-          answer: "Удовлетворительно",
-        },
-        {
-          poll_id: questions[0].poll_id,
-          question_id: questions[0].id,
-          answer: "Неудовлетворительно",
+          answer: "далбично",
         },
         {
           poll_id: questions[1].poll_id,
           question_id: questions[1].id,
-          answer: "Отлично",
+          answer: "пиздато",
         },
         {
           poll_id: questions[1].poll_id,
           question_id: questions[1].id,
-          answer: "Удовлетворительно",
+          answer: "нихуево",
         },
         {
           poll_id: questions[1].poll_id,
           question_id: questions[1].id,
-          answer: "Неудовлетворительно",
+          answer: "хуево",
         },
         {
           poll_id: questions[2].poll_id,
           question_id: questions[2].id,
-          answer: "Отлично",
+          answer: "Умеешь читать ?",
         },
         {
           poll_id: questions[2].poll_id,
           question_id: questions[2].id,
-          answer: "Удовлетворительно",
+          answer: "Сосал?",
         },
         {
           poll_id: questions[2].poll_id,
           question_id: questions[2].id,
-          answer: "Неудовлетворительно",
+          answer: "да",
         },
         {
           poll_id: questions[3].poll_id,
           question_id: questions[3].id,
-          answer: "Отлично",
+          answer: "пизда",
         },
         {
           poll_id: questions[3].poll_id,
           question_id: questions[3].id,
-          answer: "Удовлетворительно",
+          answer: "очко",
         },
         {
           poll_id: questions[3].poll_id,
           question_id: questions[3].id,
-          answer: "Неудовлетворительно",
+          answer: "похуй мне",
         },
         {
           poll_id: questions[4].poll_id,
           question_id: questions[4].id,
-          answer: "Отлично",
+          answer: "спермоприемник",
         },
         {
           poll_id: questions[4].poll_id,
           question_id: questions[4].id,
-          answer: "Удовлетворительно",
+          answer: "хуеглот",
         },
         {
           poll_id: questions[4].poll_id,
           question_id: questions[4].id,
-          answer: "Неудовлетворительно",
+          answer: "пиздогрыз",
         },
         {
           poll_id: questions[5].poll_id,
           question_id: questions[5].id,
-          answer: "Отлично",
+          answer: "далбоеб",
         },
         {
           poll_id: questions[5].poll_id,
           question_id: questions[5].id,
-          answer: "Удовлетворительно",
+          answer: "нахуй",
         },
         {
           poll_id: questions[6].poll_id,
           question_id: questions[6].id,
-          answer: "Неудовлетворительно",
+          answer: "похуй",
         },
       ];
 

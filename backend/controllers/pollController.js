@@ -3,7 +3,17 @@ const ApiError = require("../error/ApiError");
 
 class PollController {
 	async create(req, res, next) {
-		const { user_id, user_name, title, description, isOpen } = req.body;
+		const { user_id, user_name, title, description, isOpen = true } = req.body;
+
+		console.log({
+			user_id,
+			user_name,
+			title,
+			description,
+			isOpen,
+		});
+
+		console.log('СОЗДАНИЕ')
 
 		try {
 			const poll = await Poll.create({
@@ -14,13 +24,18 @@ class PollController {
 				isOpen,
 			});
 
+			console.log('ОКОНЧАНИЕ')
+
 			await Active_poll.create({
 				poll_id: poll.id,
 				question_id: null,
 			});
+			
+			console.log('mfqifm')
 
 			return res.json(poll);
 		} catch (e) {
+			console.log(e)
 			return next(ApiError.internal("Ошибка при создании опроса"));
 		}
 	}

@@ -1,9 +1,9 @@
 
 //delete
 $(document).on('click', '.delete', function() {
-    $('.choosen').css({opacity: 0});
+    $('.chsn').css({opacity: 0});
     setTimeout(function() {
-        $('.choosen').remove()
+        $('.chsn').remove()
     }, 500)
 });
 
@@ -16,6 +16,7 @@ setTimeout(function() {
 
 function choosePoll() {
     $(`#pollId${this.id}`).toggleClass('choosen')
+    $(`#upperPollId${this.id}`).toggleClass('chsn')
 }
 
 
@@ -23,39 +24,37 @@ function choosePoll() {
 $(document).on('click', '.render', function() {
     const button = $(this); // кнопка, по которой кликнули
     const buttonText = button.text().trim();
+    
 
     if (buttonText === 'Редактировать') {
+        const poll = this.closest('.poll')
+        const save = poll.querySelector('.highlight')
         $('.upperPoll').css({opacity: '0'})
+        $('.newPoll').css({opacity: '0'})
         $('.upperPoll').css('z-index', -1)
+        $('.newPoll').css('z-index', -1)
         $(`#upperPollId${this.id}`).css({opacity: '1'})
         $(`#upperPollId${this.id}`).css('z-index', 1)
-        $('.render').text('Отмена')
-        $('.highlight').text('Сохранить')
-        $('.highlight').addClass('save')
-        $('.save').removeClass('highlight')
+        button.text('Отмена')
+        save.textContent = 'Сохранить'
+        save.classList.add('save')
+        save.classList.remove('highlight')
         $(`#adminPanelId${this.id}`).addClass('active_panel')
         if (document.getElementById(`pollId${this.id}`).classList.contains('choosen')){
             $(`#pollId${this.id}`).toggleClass('choosen')
         }
     } else {
+        const poll = this.closest('.poll')
+        const save = poll.querySelector('.save')
         $(`#adminPanelId${this.id}`).removeClass('active_panel')
         $('.upperPoll').css('z-index', 1)
+        $('.newPoll').css('z-index', 1)
         $('.upperPoll').css({opacity: '1'})
-        $('.render').text('Редактировать')
-        $('.save').text('Выделить')
+        $('.newPoll').css({opacity: '1'})
+        button.text('Редактировать')
+        save.textContext = 'Выделить'
         $('.save').addClass('highlight')
         $('.highlight').removeClass('save')
-    }
-})
-
-$(document).on('click', '.answer', function() {
-    let answerClass = $(this.classList)[1]
-    console.log(answerClass)
-    if (this.classList.contains('right_answer')) {
-        $(`.${answerClass}`).removeClass('right_answer')
-    } else {
-        $(`.${answerClass}`).removeClass('right_answer')
-        $(this).addClass('right_answer')
     }
 })
 
