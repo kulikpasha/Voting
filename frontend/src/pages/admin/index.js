@@ -29,15 +29,28 @@ $(document).on('click', '.render', function() {
     if (buttonText === 'Редактировать') {
         const poll = this.closest('.poll')
         const save = poll.querySelector('.highlight')
+
         $('.upperPoll').css('z-index', -1)
+        $('.upperPoll').css('opacity', 0)
         $('.newPoll').css('z-index', -1)
         $(`#upperPollId${this.id}`).css('z-index', 1)
-        document.querySelector(`#upperPollId${this.id}`).classList.add('move')
+        $(`#upperPollId${this.id}`).css('opacity', 1)
+
+        const pollElement = document.querySelector(`#upperPollId${this.id}`)
+
+        const elementRect = document.querySelector(`#upperPollId${this.id}`).getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const elementTopPosition = elementRect.top + scrollTop;
+        pollElement.style.transform = `translateY(${-elementTopPosition + 350}px)`;
+        window.scrollTo({top: 100, behavior: 'smooth'})
+
         button.text('Отмена')
         save.textContent = 'Сохранить'
+        
         save.classList.add('save')
         save.classList.remove('highlight')
         $(`#adminPanelId${this.id}`).addClass('active_panel')
+
         if (document.getElementById(`pollId${this.id}`).classList.contains('choosen')){
             $(`#pollId${this.id}`).toggleClass('choosen')
         }
@@ -45,11 +58,20 @@ $(document).on('click', '.render', function() {
         const poll = this.closest('.poll')
         const save = poll.querySelector('.save')
         $(`#adminPanelId${this.id}`).removeClass('active_panel')
-        document.querySelector(`#upperPollId${this.id}`).classList.remove('move')
+
+        $('.upperPoll').css('opacity', 1)
         $('.upperPoll').css('z-index', 1)
         $('.newPoll').css('z-index', 1)
+
+        const pollElement = document.querySelector(`#upperPollId${this.id}`)
+        pollElement.style.transform = `translateY(${0}px)`;
+        setTimeout(() => {
+            pollElement.scrollIntoView({ behavior: 'smooth', block: 'center'})
+        }, 800)
+
         button.text('Редактировать')
         save.textContent = 'Выделить'
+
         $('.save').addClass('highlight')
         $('.highlight').removeClass('save')
     }

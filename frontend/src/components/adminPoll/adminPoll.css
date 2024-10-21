@@ -10,17 +10,9 @@ input {
 .upperPoll  {
     display: flex;
     justify-content: center;
-    transition: 0.3s;
+    transition: 0.3s, transform 0.8s ease;
     position: relative;
     z-index: 1;
-}
-
-.move {
-    position: fixed;
-    top: 10vh;
-    left: 0;
-    right: 0;
-    transform: translateY(0);
 }
 
 .poll {
