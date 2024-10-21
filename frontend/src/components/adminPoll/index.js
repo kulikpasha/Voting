@@ -120,6 +120,8 @@ $(document).on('click', '.bttn', function() {
     let yep = false
 
     if ($(this).hasClass('save')) {
+        console.log('fniqni')
+
         const poll = this.closest('.upperPoll')
         const title = poll.querySelector('.pollTitle')
         const description = poll.querySelector('.pollDescription')
@@ -138,9 +140,11 @@ $(document).on('click', '.bttn', function() {
         }
 
         if (isQuestionRight() && rightPoll) {
+            console.log('fllflqeflq')
             document.querySelector('.alert').innerText = 'Изменения сохранены'
             $('.notification').css({background: '#62d371'})
         } else {
+            console.log('qqfnqifequb')
             document.querySelector('.alert').innerText = 'Укажите все данные'
             $('.notification').css({background: '#dc4a25'})
         }
@@ -201,6 +205,7 @@ $(document).on('click', '.bttn', function() {
             yep = true
         }
     }
+    console.log(yep)
 
     if (yep) {
         $('.notification').css({transform: 'translateY(-70px)'})

@@ -8,6 +8,7 @@ const errorHandler = require("./middleware/ErrorHandlingMiddleware");
 const path = require("path");
 const initializeData = require("./initializeData");
 const PORT = process.env.PORT || 5000;
+const WebSocketServer = require('./WSServer')
 
 const app = express();
 

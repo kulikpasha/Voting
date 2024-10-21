@@ -3,8 +3,8 @@ header {
 	padding: 0 2rem;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid #ccc;
 	background: #fafafa;
+	width: 100%;
 }
 header a {
 	color: black;

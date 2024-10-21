@@ -52,7 +52,7 @@ $(document).on('click', '.render', function() {
         $('.upperPoll').css({opacity: '1'})
         $('.newPoll').css({opacity: '1'})
         button.text('Редактировать')
-        save.textContext = 'Выделить'
+        save.textContent = 'Выделить'
         $('.save').addClass('highlight')
         $('.highlight').removeClass('save')
     }

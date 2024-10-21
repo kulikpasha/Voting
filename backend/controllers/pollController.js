@@ -5,16 +5,6 @@ class PollController {
 	async create(req, res, next) {
 		const { user_id, user_name, title, description, isOpen = true } = req.body;
 
-		console.log({
-			user_id,
-			user_name,
-			title,
-			description,
-			isOpen,
-		});
-
-		console.log('СОЗДАНИЕ')
-
 		try {
 			const poll = await Poll.create({
 				user_id,
@@ -23,15 +13,6 @@ class PollController {
 				description,
 				isOpen,
 			});
-
-			console.log('ОКОНЧАНИЕ')
-
-			await Active_poll.create({
-				poll_id: poll.id,
-				question_id: null,
-			});
-			
-			console.log('mfqifm')
 
 			return res.json(poll);
 		} catch (e) {

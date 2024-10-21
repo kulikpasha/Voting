@@ -6,11 +6,7 @@ class VoteController {
 	async create(req, res) {
 		const { user_id, answer_id } = req.body;
 		try {
-			const answer = await Answer.findByPk(answer_id);
-
-			if (!answer) {
-				return res.status(404).json({ message: "Answer not found" });
-			}
+			const answer = await Answer.findOne({where: {id: answer_id}});
 
 			const question_id = answer.question_id;
 			const poll_id = answer.poll_id;

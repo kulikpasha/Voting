@@ -8,14 +8,16 @@ import {
 	QUESTION_ROUTE,
 	POLL_RESULT_ROUTE,
 	POLL_ADMIN_ROUTE,
+	QUESTION_CONTROLL_ROUTE,
 } from "./utils/consts";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import Votes from "./pages/Votes";
-import PollPage from "./pages/PollPage";
-import Question from "./pages/QuestionPage";
-import PollResult from "./pages/PollResult";
-import PollAdmin from "./pages/PollAdmin";
+import PollPage from "./pages/startPoll";
+import Question from "./pages/clientQuestions";
+import PollResult from "./pages/Results";
+import PollAdmin from "./pages/PashasQuestionControll";
+import QuestionControll from "./pages/questionsControll";
 import { Component } from "react";
 
 export const authRoutes = [{ path: ADMIN_ROUTE, Component: Admin }];
@@ -52,4 +54,8 @@ export const publicRoutes = [
 		path: ADMIN_ROUTE,
 		Component: Admin,
 	},
+	{
+		path: QUESTION_CONTROLL_ROUTE + '/:id',
+		Component: QuestionControll
+	}
 ];

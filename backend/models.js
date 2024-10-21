@@ -59,7 +59,7 @@ const Vote = sequelize.define(
 	"Vote",
 	{
 		id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-		// user_id: { type: DataTypes.INTEGER },
+		user_id: { type: DataTypes.INTEGER },
 		answer_id: { type: DataTypes.INTEGER },
 		question_id: { type: DataTypes.INTEGER },
 		poll_id: { type: DataTypes.INTEGER },
@@ -77,6 +77,7 @@ const Active_poll = sequelize.define("Active_poll", {
 		allowNull: true,
 		defaultValue: null,
 	},
+	status: { type: DataTypes.STRING, defaultValue: 'waitng' }
 });
 
 User.hasMany(Poll, { foreignKey: "user_id" });

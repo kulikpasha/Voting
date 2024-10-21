@@ -3,7 +3,7 @@ import { fetchPolls } from '../http/pollAPI';
 import Poll from '../components/Poll/Poll';
 
 export default function Votes() {
-	const [votes, setVotes] = useState([]);
+	const [polls, setPolls] = useState([]); // я меняю votes на polls потому что логика нахуй просто пизда
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 
@@ -13,7 +13,7 @@ export default function Votes() {
 
 		fetchPolls()
 			.then(data => {
-				setVotes(data);
+				setPolls(data);
 				setIsLoading(false);
 			})
 			.catch(error => {
@@ -36,8 +36,8 @@ export default function Votes() {
 		<main>
 			<section>
 				<ul>
-					{votes.map((vote) => (
-						<Poll key={vote.title} {...vote} />
+					{polls.map((poll) => (
+						<Poll key={poll.id} {...poll} />
 					))}
 				</ul>
 			</section>

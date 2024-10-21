@@ -59,11 +59,12 @@ class QuestionController {
 	}
 
 	async getOne(req, res) {
-		const { id } = req.params;
+		const {id}  = req.query;
+		const question = await Question.findOne({ where: { id: Number(id) } });
 
-		const question = await Question.findOne({ where: { id } });
+		console.log(question.dataValues)
 
-		return res.json(question);
+		return res.json(question.dataValues);
 	}
 
 	async getPollQuestions(req, res) {
@@ -76,15 +77,6 @@ class QuestionController {
 	async editQuestions(req, res, next) {
 		const {poll_id} = req.params
 		const {questions} = req.body
-/*
-		console.log(questions[0].question_text)
-
-		console.log(req.params)
-
-		console.log("Полученные вопросы:", questions);
-        console.log("ID голосования:", poll_id);
-*/
-
 		try {
 			const  existingQuestions = await Question.findAll({where: {poll_id: poll_id}})
 			//console.log("Существующие вопросы:", existingQuestions);

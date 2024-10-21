@@ -6,8 +6,13 @@
 	box-sizing: border-box;
 }
 
+#root {
+	position: relative;
+}
+
 body {
 	font-family: "Roboto", sans-serif;
+	overflow-x: hidden;
 }
 
 main {

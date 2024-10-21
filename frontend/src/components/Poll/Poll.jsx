@@ -6,10 +6,17 @@ import { Link } from 'react-router-dom';
 
 
 export default function Poll({ id, title, description, user_name, isOpen }) {
-    return (
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behaivor: 'smooth'
+        })
+    }
+
+    return (
         <li className="voteItem">
-            <Link key={id} to={`/poll/${id}`}>
+            <Link key={id} to={`/poll/${id}?user_name=${user_name}&title=${title}&description=${description}`} onClick={() => scrollToTop()}> 
                 <div className="voteTitle"><strong>{title}</strong></div>
                 <div className="voteDescription">{description}</div>
                 <div className="voteAuthor">Автор голосования: <strong>{user_name}</strong></div>
