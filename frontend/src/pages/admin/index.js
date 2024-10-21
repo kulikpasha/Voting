@@ -29,12 +29,10 @@ $(document).on('click', '.render', function() {
     if (buttonText === 'Редактировать') {
         const poll = this.closest('.poll')
         const save = poll.querySelector('.highlight')
-        $('.upperPoll').css({opacity: '0'})
-        $('.newPoll').css({opacity: '0'})
         $('.upperPoll').css('z-index', -1)
         $('.newPoll').css('z-index', -1)
-        $(`#upperPollId${this.id}`).css({opacity: '1'})
         $(`#upperPollId${this.id}`).css('z-index', 1)
+        document.querySelector(`#upperPollId${this.id}`).classList.add('move')
         button.text('Отмена')
         save.textContent = 'Сохранить'
         save.classList.add('save')
@@ -47,10 +45,9 @@ $(document).on('click', '.render', function() {
         const poll = this.closest('.poll')
         const save = poll.querySelector('.save')
         $(`#adminPanelId${this.id}`).removeClass('active_panel')
+        document.querySelector(`#upperPollId${this.id}`).classList.remove('move')
         $('.upperPoll').css('z-index', 1)
         $('.newPoll').css('z-index', 1)
-        $('.upperPoll').css({opacity: '1'})
-        $('.newPoll').css({opacity: '1'})
         button.text('Редактировать')
         save.textContent = 'Выделить'
         $('.save').addClass('highlight')

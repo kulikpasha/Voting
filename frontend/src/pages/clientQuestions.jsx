@@ -76,7 +76,6 @@ function QuestionPage() {
 					Object.keys(localStorage).forEach(key => {
 						if (key.startsWith(`answer_${userId}_`)) {
 							localStorage.removeItem(key);
-							console.log('fqm')
 						}
 					});
 				}
@@ -90,46 +89,23 @@ function QuestionPage() {
 		if (question_id) {
 			// Изменяем стили кнопки отправки ответа
 			$('.submit_answer').css({ background: '#ffd6ae' });
-	
-			if (!question) {
-				get_one(question_id).then(data => {
-					setQuestion(data.question_text);
-				});
-			}
+
+			get_one(question_id).then(data => {
+				setQuestion(data.question_text);
+			});
 	
 			// Загружаем ответы для текущего вопроса
 			gAFQ_id(question_id, id).then(data => {
 				setAnswers(data);
 			});
-	
-			// Проверяем, есть ли уже сохранённый ответ для текущего вопроса
-			const savedAnswers = JSON.parse(localStorage.getItem('user_answers')) || {};
-			const savedAnswerId = savedAnswers[question_id];
-	
-			if (savedAnswerId) {
-				setSelectedAnswer(savedAnswerId); // Устанавливаем ответ как выбранный
-				setIsSubmitted(true); // Блокируем повторное голосование
-	
-				// Если ответы уже загружены, то визуально выделяем выбранный ответ
-				if (answers && answers.length > 0) {
-					const savedIndex = answers.findIndex(answer => answer.id === savedAnswerId);
-					if (savedIndex !== -1) {
-						$(`.answer_variant:eq(${savedIndex})`).css({
-							background: '#ffd6ae',
-							border: '1px #ffd6ae solid',
-						});
-
-						$('.submit_answer').css({background: '#ffa54a'})
-					}
-				}
-			} else {
-				setSelectedAnswer(null); // Сбрасываем состояние, если ответа нет
-				setIsSubmitted(false);
-			}
+		
+			setSelectedAnswer(null); // Сбрасываем состояние, если ответа нет
+			setIsSubmitted(false);
+			
 		}
-	}, [question_id, answers]); // Добавляем зависимость от answers
+	}, [question_id]); // Добавляем зависимость от answers
 	
-
+	console.log(question)
 
 	useEffect(() => {
 		if (answers && Array.isArray(answers) && answers.length > 0) {

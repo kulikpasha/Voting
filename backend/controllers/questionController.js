@@ -42,22 +42,6 @@ class QuestionController {
 		}
 	}
 
-	async getAll(req, res) {
-		try {
-			const { poll_id } = req.params;
-
-			if (!poll_id) {
-				return res.status(400).json({ error: "poll_id не указан" });
-			}
-
-			const questions = await Question.findAll({ where: { poll_id } });
-
-			return res.json(questions);
-		} catch {
-			return undefined
-		}
-	}
-
 	async getOne(req, res) {
 		const {id}  = req.query;
 		const question = await Question.findOne({ where: { id: Number(id) } });
@@ -79,25 +63,20 @@ class QuestionController {
 		const {questions} = req.body
 		try {
 			const  existingQuestions = await Question.findAll({where: {poll_id: poll_id}})
-			//console.log("Существующие вопросы:", existingQuestions);
 
 			if ( existingQuestions.length === 0 ) {
-				//console.log('Вопросов данного голосования не найдено');
 				return res.status(404).json({message: 'Вопросов данного голосования не найдено'})
 			}
 			const updatePromises = questions.map((question) => {
 				const { id, question_text } = question;
-				//console.log(`Обновление вопроса с ID ${id}: ${question_text}`);
 				return Question.update(
 					{ question_text },
 					{ where: { id, poll_id } }
 				);
 			});
 	
-			// Ждем выполнения всех обновлений
 			try {
 				const updateResults = await Promise.all(updatePromises);
-				//console.log('Результаты обновления: ', updateResults);
 			} catch (error) {
 				console.error('Ошибка при обновлении вопросов: ', error);
 			}

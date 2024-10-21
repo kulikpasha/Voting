@@ -35,20 +35,6 @@ class AnswerController {
 		return res.json(answers);
 	}
 
-	async testAns(req, res) {
-		const answers = await Answer.findAll()
-
-		return res.json(answers)
-	}
-
-	async getLast(req, res) {
-		const {question_id, poll_id} = req.params
-
-		const answer = await Answer.findOne({where: {question_id, poll_id}, 
-		order: [['id', 'DESC']]})
-		return res.json(answer)
-	}
-
 	async deleteAnswer(req, res) {
 		const {id} = req.params
 

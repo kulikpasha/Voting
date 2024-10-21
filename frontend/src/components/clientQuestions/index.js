@@ -5,5 +5,4 @@ function highlight_handler(event) {
     $(elem).css({background: '#ffd6ae'})
     $('.submit_answer').css({background: '#ffb163'})
     $(document).off('click', highlight_handler)
-    console.log('хуй')
 } 

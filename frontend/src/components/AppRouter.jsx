@@ -14,19 +14,19 @@ export default function AppRouter() {
 				return {
 					from: { 
 					  opacity: 0, 
-					  transform: `translate3d(100%, 0, 0)`,  // Заменено на translate3d
+					  transform: `translate3d(100%, 0, 0)`, 
 					  position: 'absolute',
 					  width: '100%' 
 					},
 					enter: { 
 					  opacity: 1, 
-					  transform: `translate3d(0, 0, 0)`,  // Заменено на translate3d
+					  transform: `translate3d(0, 0, 0)`, 
 					  position: 'absolute',
 					  width: '100%' 
 					},
 					leave: { 
 					  opacity: 0, 
-					  transform: `translate3d(-100%, 0, 0)`,  // Заменено на translate3d
+					  transform: `translate3d(-100%, 0, 0)`, 
 					  position: 'absolute',
 					  width: '100%' 
 					}
@@ -36,20 +36,20 @@ export default function AppRouter() {
 			  return {
 				from: {
 				  opacity: 0,
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%',
 				  transform: 'translate3d(0, 0, 0)'
 				},
 				enter: { 
 				  opacity: 1, 
 				  transform: 'translate3d(0, 0, 0)',
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%' 
 				},
 				leave: { 
 				  opacity: 0, 
 				  transform: 'translate3d(0, 0, 0)',
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%' 
 				},
 				config: { duration: 0 },
@@ -60,20 +60,20 @@ export default function AppRouter() {
 			  return {
 				from: {
 				  opacity: 0,
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%',
 				  transform: 'translate3d(0, 0, 0)'
 				},
 				enter: { 
 				  opacity: 1, 
 				  transform: 'translate3d(0, 0, 0)',
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%' 
 				},
 				leave: { 
 				  opacity: 0, 
 				  transform: 'translate3d(0, 0, 0)',
-				  position: 'absolute',  // Абсолютное позиционирование
+				  position: 'absolute', 
 				  width: '100%' 
 				},
 				key: location.key

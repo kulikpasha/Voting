@@ -16,7 +16,6 @@ import Votes from "./pages/Votes";
 import PollPage from "./pages/startPoll";
 import Question from "./pages/clientQuestions";
 import PollResult from "./pages/Results";
-import PollAdmin from "./pages/PashasQuestionControll";
 import QuestionControll from "./pages/questionsControll";
 import { Component } from "react";
 
@@ -37,10 +36,6 @@ export const publicRoutes = [
 	{
 		path: POLL_ROUTE + "/:id",
 		Component: PollPage,
-	},
-	{
-		path: POLL_ADMIN_ROUTE + "/:id",
-		Component: PollAdmin,
 	},
 	{
 		path: QUESTION_ROUTE + "/:id",
