@@ -15,8 +15,7 @@ export const WebSocketProvider = ({ children }) => {
         if (!adminSocketRef.current) {
             adminSocketRef.current = new WebSocket('ws://localhost:8080');
 
-            adminSocketRef.current.onopen = () => {
-                console.log('Админ подключен');
+            adminSocketRef.current.onopen = () => { 
                 adminSocketRef.current.send(JSON.stringify({ role: 'admin' }));
             };
         }
@@ -25,21 +24,18 @@ export const WebSocketProvider = ({ children }) => {
     const pollStartNotification = (poll_id) => {
         if (adminSocketRef.current && adminSocketRef.current.readyState === WebSocket.OPEN) {
             adminSocketRef.current.send(JSON.stringify({ role: 'admin', type: 'startPoll', poll_id }));
-            console.log('Запрос на начало опроса отправлен');
         }
     };
 
     const changeQuestion = (question_id, poll_id) => {
         if (adminSocketRef.current && adminSocketRef.current.readyState === WebSocket.OPEN) {
             adminSocketRef.current.send(JSON.stringify({ role: 'admin', type: 'changeQuestion', question_id, poll_id }));
-            console.log('Запрос на смену вопроса отправлен. Id вопроса: ', question_id);
         }
     };
 
     const endPoll = (poll_id) => {
         if (adminSocketRef.current && adminSocketRef.current.readyState === WebSocket.OPEN) {
             adminSocketRef.current.send(JSON.stringify({ role: 'admin', type: 'endPoll', poll_id }));
-            console.log('Запрос для окончания опроса отправлен');
         }
     };
 
@@ -49,7 +45,6 @@ export const WebSocketProvider = ({ children }) => {
 
             return new Promise((resolve, reject) => {
                 clientSocketRef.current.onopen = () => {
-                    console.log('Клиент подключен');
                     clientSocketRef.current.send(JSON.stringify({ role: 'client' }));
                     resolve();
                 };
@@ -69,7 +64,6 @@ export const WebSocketProvider = ({ children }) => {
                 poll_id: poll_id
             }
 
-            console.log('Клиент отправл свой айди', poll_id)
             clientSocketRef.current.send(JSON.stringify(message))
         }
     }

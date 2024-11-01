@@ -231,6 +231,12 @@ input {
     transition: 0.2s;
 }
 
+.img_url_input {
+    margin-top:20px;
+    width: 100%;
+    text-align: left;
+}
+
 .newQuestion {
     color: #19aa2c;
 }

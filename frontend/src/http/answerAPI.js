@@ -15,7 +15,7 @@ export const createAnswer_byAPI = async(question_id, answer) => {
     }
 }
 
-export const gAFQ_id = async (question_id, poll_id) => {
+export const gAFQ_id = async (question_id, poll_id) => { // get answers for question _ id
     try {
         // Передаем параметры через query в строке запроса
         const { data } = await $host.get(`api/answer?question_id=${question_id}&poll_id=${poll_id}`);

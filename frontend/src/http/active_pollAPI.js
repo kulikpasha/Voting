@@ -16,22 +16,6 @@ export const createActive_Poll = async (pollId) => {
     }
 }
 
-export const doLongPolling = async (pollId) => {
-	try {
-		const { data } = await $host.get(`api/active_poll/longpoll/${pollId}`);
-		return data;
-	} catch (error) {
-		console.error("Ошибка при получении актуального вопроса:", error);
-		throw error;
-	}
-};
-// return from back: {
-// 	question_id:
-// 	question_text:
-// 	answers: [{id:
-// 		text:
-// 	}]
-// }
 export const getPollStatus = async (pollId) => {
 	try {
 		const { data } = await $host.get(
@@ -87,6 +71,20 @@ export const prevQuestion = async (poll_id) => {
 	}
 }
 
+export const setCurrentQuestion = async (poll_id, question_id) => {
+	try {
+		const response = await $host.post(`api/active_poll/current_question`, {
+			poll_id,
+			question_id
+		})
+
+		const { new_question } = response.data
+		return new_question
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 // Работа с ответами пользователей
 
 export const submitAnswer = async (user_id, answer_id) => {
@@ -103,3 +101,13 @@ export const submitAnswer = async (user_id, answer_id) => {
 		throw error;
 	}
 };
+
+export const delete_active_poll = async (id) => {
+	try {
+		const response = await $host.delete(`/api/active_poll/${id}`)
+
+		console.log('Активный опрос удален')
+	} catch (error) {
+		console.log('Ошибка при удалении активного опроса: ' , error)
+	}
+}

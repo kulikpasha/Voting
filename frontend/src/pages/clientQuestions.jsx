@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { doLongPolling, getPollStatus, submitAnswer, updateStatus } from '../http/active_pollAPI';
+import { getPollStatus, submitAnswer, updateStatus } from '../http/active_pollAPI';
 import '../components/clientQuestions/QuestionPage.css';
 import '../components/clientQuestions/index.js'
 import { useParams } from "react-router-dom";
@@ -68,16 +68,14 @@ function QuestionPage() {
 	useEffect(() => {
 		try {
 			getPollStatus(id).then(data => {
-				console.log(data)
-				if (data.status === 'ongoing' || pollState === 'starting' || data.status === 'starting') {
-					setQuestion_id(data.question_id)
-				} else if (data.status === 'over') {
-					setPollState('over')
-					Object.keys(localStorage).forEach(key => {
-						if (key.startsWith(`answer_${userId}_`)) {
-							localStorage.removeItem(key);
-						}
-					});
+				try {
+					if (data.status === 'ongoing' || pollState === 'starting' || data.status === 'starting') {
+						setQuestion_id(data.question_id)
+					} else if (data.status === 'over') {
+						setPollState('over')
+					}
+				} catch {
+
 				}
 			})
 		} catch {
@@ -86,9 +84,20 @@ function QuestionPage() {
 	}, [pollState])
 
 	useEffect(() => {
+		if (pollState === 'over') {
+			Object.keys(localStorage).forEach(key => {
+				if (key.startsWith(`userid:${userId}_answers`)) {
+					localStorage.removeItem(key);
+				}
+			});
+		}
+	}, [pollState])
+
+	useEffect(() => {
 		if (question_id) {
 			// Изменяем стили кнопки отправки ответа
 			$('.submit_answer').css({ background: '#ffd6ae' });
+			$('.submit_answer_text').text('Ответить')
 
 			get_one(question_id).then(data => {
 				setQuestion(data.question_text);
@@ -104,8 +113,6 @@ function QuestionPage() {
 			
 		}
 	}, [question_id]); // Добавляем зависимость от answers
-	
-	console.log(question)
 
 	useEffect(() => {
 		if (answers && Array.isArray(answers) && answers.length > 0) {
@@ -124,9 +131,6 @@ function QuestionPage() {
         $(`.answer_variant:eq(${index})`).css({ background: '#ffd6ae', border: '1px #ffd6ae solid' });
         $('.submit_answer').css({ background: '#ffa54a', cursor: 'pointer' });
 
-    	const questionKey = `answer_${userId}_${question_id}`;
-    	localStorage.setItem(questionKey, JSON.stringify(id));
-
         setSelectedAnswer(id);
     };
 
@@ -139,18 +143,26 @@ function QuestionPage() {
 
 	useEffect(() => {
     if (selectedAnswer != null && isSubmitted) {
-        const savedAnswers = JSON.parse(localStorage.getItem('user_answers')) || {};
+        const savedAnswers = JSON.parse(localStorage.getItem(`userid:${userId}_answers`)) || {};
         const hasAlreadyAnswered = savedAnswers[question_id];
+
         if (!hasAlreadyAnswered) {
             submitAnswer(1, selectedAnswer).then(data => {
                 console.log(`Ответ ${selectedAnswer} отправлен.`);
                 savedAnswers[question_id] = selectedAnswer;
-                localStorage.setItem('user_answers', JSON.stringify(savedAnswers));
+                localStorage.setItem(`userid:${userId}_answers`, JSON.stringify(savedAnswers));
 
                 setIsSubmitted(true);
             });
         } else {
             console.log('Ответ уже был отправлен для этого вопроса.');
+			document.querySelector('.submit_answer').style.background = '#ff5e36'
+			document.querySelector('.submit_answer').style.cursor = 'default'
+			document.querySelector('.submit_answer_text').classList.add('hidden')
+			setTimeout(() => {
+				document.querySelector('.submit_answer_text').textContent = 'Вы уже дали ответ на этот вопрос'
+				document.querySelector('.submit_answer_text').classList.remove('hidden')
+			}, 200)
         }
     }
 }, [isSubmitted]);
@@ -175,7 +187,7 @@ function QuestionPage() {
 				<div className='questions_page'>
 					<div className='questions_container'>
 						<div className='image_container'>
-							<img src='https://giffun.ru/wp-content/uploads/2022/10/smeshnye-kotiki-1.gif' height={'100%'} style={{objectFit: 'cover'}}>
+							<img src='https://vgif.ru/gifs/146/vgif-ru-19857.webp' height={'100%'} style={{objectFit: 'cover'}}>
 								
 							</img>
 						</div>
@@ -194,7 +206,7 @@ function QuestionPage() {
 										onAnswerClick={handleAnswerClick}/>)}
 						</div>
 						<div className='submit_answer' onClick={() => handleSubmit()}>
-								<span>
+								<span className='submit_answer_text'>
 									Ответить
 								</span>
 						</div>

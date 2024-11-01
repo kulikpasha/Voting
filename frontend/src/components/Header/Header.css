@@ -5,6 +5,8 @@ header {
 	align-items: center;
 	background: #fafafa;
 	width: 100%;
+	position: absolute;
+	z-index: 1;
 }
 header a {
 	color: black;

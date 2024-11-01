@@ -49,3 +49,13 @@ export const get_one = async(id) => {
 		console.log(error)
 	}
 }
+
+export const get_poll_questions = async(id) => {
+	try {
+		const response = await $host.get(`api/question/all/${id}`)
+
+		return response.data
+	} catch (error) {
+		console.log(error)
+	}
+}

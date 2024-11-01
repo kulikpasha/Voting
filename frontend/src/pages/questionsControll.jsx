@@ -106,7 +106,7 @@ export default function QuestionControll() {
 
     
 
-    const move_to_results = () => {
+    const move_to_results = async() => {
         endPoll(id)
         localStorage.removeItem(`question_id${activePoll_id}`);
         localStorage.removeItem(`question_title${activePoll_id}`);

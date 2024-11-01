@@ -83,11 +83,6 @@ class Active_pollController {
 					{question_id: next_question.id},
 					{where: {poll_id}}
 				)
-
-				console.log('Новые данные опроса - ', respose)
-
-				console.log('Возвращаемые данные - ', next_question)
-
 				return res.json({next_question})
 			}
 		} catch (error) {
@@ -121,6 +116,23 @@ class Active_pollController {
 
 				return res.json({prev_question})
 			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	async setCurrentQuestion(req, res) {
+		try {
+			const {poll_id, question_id} = req.body
+
+			const new_question = await Active_poll.update(
+				{question_id: question_id},
+				{where: {poll_id}}
+			)
+
+			console.log(new_question)
+
+			return res.json({new_question})
 		} catch (error) {
 			console.log(error)
 		}

@@ -99,6 +99,9 @@ export default function AP_Question( {id, poll_id, question_text, img, onQuestio
                     )
                     )}
                 </div>
+                <div className='img_url_input' contentEditable='true' suppressContentEditableWarning='true' onInput={handleChange}>
+                    
+                </div>
             </div>
         </>
     )
