@@ -56,7 +56,7 @@ export default function Admin() {
 
 	return (
 		<>
-		<div className="container">
+		<div className="container" style={{margin: '100px 0 0 0'}}>
 			<div className="notification">
 				<div className="notification_inside">
 					<span className="alert"></span>

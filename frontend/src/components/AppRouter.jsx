@@ -16,19 +16,22 @@ export default function AppRouter() {
 					  opacity: 0, 
 					  transform: `translate3d(100%, 0, 0)`, 
 					  position: 'absolute',
-					  width: '100%' 
+					  width: '100%' ,
+					  height: '100%'
 					},
 					enter: { 
 					  opacity: 1, 
 					  transform: `translate3d(0, 0, 0)`, 
 					  position: 'absolute',
-					  width: '100%' 
+					  width: '100%' ,
+					  height: '100%'
 					},
 					leave: { 
 					  opacity: 0, 
 					  transform: `translate3d(-100%, 0, 0)`, 
 					  position: 'absolute',
-					  width: '100%' 
+					  width: '100%',
+					  height: '100%'
 					}
 				  };
 			
@@ -38,19 +41,22 @@ export default function AppRouter() {
 				  opacity: 0,
 				  position: 'absolute', 
 				  width: '100%',
+				  height: '100%',
 				  transform: 'translate3d(0, 0, 0)'
 				},
 				enter: { 
 				  opacity: 1, 
 				  transform: 'translate3d(0, 0, 0)',
 				  position: 'absolute', 
-				  width: '100%' 
+				  width: '100%' ,
+				  height: '100%',
 				},
 				leave: { 
 				  opacity: 0, 
 				  transform: 'translate3d(0, 0, 0)',
 				  position: 'absolute', 
-				  width: '100%' 
+				  width: '100%' ,
+				  height: '100%'
 				},
 				config: { duration: 0 },
 				key: location.key 
@@ -62,19 +68,22 @@ export default function AppRouter() {
 				  opacity: 0,
 				  position: 'absolute', 
 				  width: '100%',
+				  height: '100%',
 				  transform: 'translate3d(0, 0, 0)'
 				},
 				enter: { 
 				  opacity: 1, 
 				  transform: 'translate3d(0, 0, 0)',
 				  position: 'absolute', 
-				  width: '100%' 
+				  width: '100%' ,
+				  height: '100%'
 				},
 				leave: { 
 				  opacity: 0, 
 				  transform: 'translate3d(0, 0, 0)',
 				  position: 'absolute', 
-				  width: '100%' 
+				  width: '100%' ,
+				  height: '100%'
 				},
 				key: location.key
 			  };

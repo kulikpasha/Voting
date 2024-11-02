@@ -50,7 +50,7 @@ export default function PollPage() {
 
 	return (
 		<>
-		<div className="page">
+		<div className="page" style={{margin: '100px 0 0 0'}}>
 			<div className="info">
 				<div className="voteTitle"><strong>{poll.title}</strong></div>
 				<div className="voteDescription">{poll.description}</div>

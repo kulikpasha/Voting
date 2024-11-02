@@ -1,5 +1,5 @@
 import React from 'react'
-import {Pie} from 'react-chartjs-2'
+import {Doughnut} from 'react-chartjs-2'
 import {
     Chart as ChartJS,
     ArcElement,
@@ -10,7 +10,7 @@ import {
 // Регистрация элементов
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function PieChart({data}) {
+function DoughnutChart({data}) {
     const chartData = {
         labels: data.labels,
         datasets: [
@@ -31,9 +31,11 @@ function PieChart({data}) {
         plugins: {
             legend: {
                 labels: {
-                    color: 'white',
+                    color: '#3159eb',
                     font: {
-                        size: 17
+                        size: 19,
+                        family: "Noto Sans, sans-serif",
+                        weight: 'bold'
                     }
                 }
             }
@@ -42,9 +44,9 @@ function PieChart({data}) {
 
     return (
         <div>
-            <Pie data={chartData} options={options}/>
+            <Doughnut data={chartData} options={options}/>
         </div>
     )
 }
 
-export default PieChart
+export default DoughnutChart

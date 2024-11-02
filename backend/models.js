@@ -61,6 +61,7 @@ const Vote = sequelize.define(
 		id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 		user_id: { type: DataTypes.INTEGER },
 		answer_id: { type: DataTypes.INTEGER },
+		answer_text: { type: DataTypes.STRING },
 		question_id: { type: DataTypes.INTEGER },
 		poll_id: { type: DataTypes.INTEGER },
 	},
